@@ -1,0 +1,9 @@
+[submodule "multiwork-backend"]
+	path = multiwork-backend
+	url = https://github.com/UPCoD-UNKD/multiwork-backend
+[submodule "multiwork-frontend"]
+	path = multiwork-frontend
+	url = https://github.com/UPCoD-UNKD/multiwork-frontend
+[submodule "multiwork-app-android"]
+	path = multiwork-app-android
+	url = https://github.com/UPCoD-UNKD/multiwork-app-android

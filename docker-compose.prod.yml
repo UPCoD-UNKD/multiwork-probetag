@@ -10,9 +10,7 @@ services:
     restart: always
     env_file:
       - .env.production
-    ports:
-      # Expose for direct testing (Security: Cloud Firewall should restrict this if possible)
-      - "8080:8080"
+    #      - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: production
       # DB Connection injected from .env.production
@@ -36,9 +34,9 @@ services:
         - REACT_APP_API_URL=/api
     container_name: multiwork-frontend
     restart: always
-    ports:
-      # Expose for direct testing at port 8081
-      - "8081:80"
+    #    ports:
+    #      # Expose for direct testing at port 8081
+    #      - "8081:80"
     networks:
       - internal-net
 

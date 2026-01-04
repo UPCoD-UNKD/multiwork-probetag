@@ -16,6 +16,7 @@ echo "DB:   postgres"
 # Run a temporary alpine container with postgresql-client
 docker run --rm \
     -e PGPASSWORD=$SPRING_DATASOURCE_PASSWORD \
+    -e PGSSLMODE=require \
     alpine sh -c "apk add --no-cache postgresql-client && \
     psql -h multiwork.postgres.database.azure.com -U $SPRING_DATASOURCE_USERNAME -d postgres -c '\l' && \
     echo '✅ CONNECTION SUCCESSFUL!'"

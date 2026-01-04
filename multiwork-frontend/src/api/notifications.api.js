@@ -47,10 +47,10 @@ export const getProjectNotificationCount = async (projectId) => {
     let applicationsCount = 0;
     try {
       const countResponse = await apiFetch(
-        `/api/project-application/project/${projectId}/pending-count`,
+        `/project-application/project/${projectId}/pending-count`,
         { method: 'GET' }
       );
-      
+
       if (countResponse.ok) {
         const count = await countResponse.json();
         applicationsCount = typeof count === 'number' ? count : 0;
@@ -62,17 +62,17 @@ export const getProjectNotificationCount = async (projectId) => {
     // Get comments count
     let commentsCount = 0;
     try {
-      const projectResponse = await apiFetch(`/api/project/${projectId}`, {
+      const projectResponse = await apiFetch(`/project/${projectId}`, {
         method: 'GET',
       });
-      
+
       if (projectResponse.ok) {
         const projectData = await projectResponse.json();
         const comments = projectData.comments || [];
-        
+
         // Get last visit time to determine "new" comments
         const lastVisitTime = getSecureItem(STORAGE_KEYS.LAST_VISIT_TIME);
-        
+
         if (Array.isArray(comments)) {
           if (lastVisitTime) {
             const lastVisit = new Date(lastVisitTime);
@@ -112,7 +112,7 @@ export const getProjectNotificationCount = async (projectId) => {
 export const getNotificationCount = async () => {
   try {
     // Get user's created projects
-    const userResponse = await apiFetch('/api/user/me', {
+    const userResponse = await apiFetch('/user/me', {
       method: 'GET',
     });
 
@@ -121,7 +121,7 @@ export const getNotificationCount = async () => {
     }
 
     const userData = await userResponse.json();
-    
+
     // Get creator projects
     let creatorProjects = [];
     if (userData.creatorProjects) {
@@ -142,12 +142,12 @@ export const getNotificationCount = async () => {
       try {
         const projectId = typeof project === 'object' ? project.id : project;
         if (!projectId) return 0;
-        
+
         const countResponse = await apiFetch(
-          `/api/project-application/project/${projectId}/pending-count`,
+          `/project-application/project/${projectId}/pending-count`,
           { method: 'GET' }
         );
-        
+
         if (countResponse.ok) {
           const count = await countResponse.json();
           return typeof count === 'number' ? count : 0;
@@ -166,24 +166,24 @@ export const getNotificationCount = async () => {
     // Get last visit time to determine "new" comments
     let commentsCount = 0;
     const lastVisitTime = getSecureItem(STORAGE_KEYS.LAST_VISIT_TIME);
-    
+
     // Fetch all projects to count comments
     const projectDetailsPromises = creatorProjects.map(async (project) => {
       try {
         const projectId = typeof project === 'object' ? project.id : project;
         if (!projectId) return { commentsCount: 0 };
-        
-        const projectResponse = await apiFetch(`/api/project/${projectId}`, {
+
+        const projectResponse = await apiFetch(`/project/${projectId}`, {
           method: 'GET',
         });
-        
+
         if (!projectResponse.ok) {
           return { commentsCount: 0 };
         }
-        
+
         const projectData = await projectResponse.json();
         const comments = projectData.comments || [];
-        
+
         // Count comments (if lastVisitTime exists, count only newer comments)
         let newCommentsCount = 0;
         if (Array.isArray(comments)) {
@@ -203,7 +203,7 @@ export const getNotificationCount = async () => {
             newCommentsCount = comments.length;
           }
         }
-        
+
         return { commentsCount: newCommentsCount };
       } catch (err) {
         logError('Failed to fetch project comments:', err);

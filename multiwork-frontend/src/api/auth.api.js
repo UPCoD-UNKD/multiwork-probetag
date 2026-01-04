@@ -2,7 +2,7 @@ import { apiFetch } from './client';
 import { setToken } from '../utils/storage';
 
 export const login = async (email, password) => {
-  const response = await apiFetch('/api/auth/login', {
+  const response = await apiFetch('/auth/login', {
     method: 'POST',
     body: JSON.stringify({ email, password }),
   });
@@ -26,7 +26,7 @@ export const login = async (email, password) => {
 
   if (!response.ok) {
     // Handle ErrorResponse format: { message: "..." }
-    const errorMessage = typeof data === 'object' && data !== null 
+    const errorMessage = typeof data === 'object' && data !== null
       ? (data.message || JSON.stringify(data))
       : (data || 'Login failed');
     throw new Error(errorMessage);
@@ -37,7 +37,7 @@ export const login = async (email, password) => {
   return data;
 };
 export const register = async (email, username, password) => {
-  const response = await apiFetch('/api/auth/register', {
+  const response = await apiFetch('/auth/register', {
     method: 'POST',
     body: JSON.stringify({ email, username, password }),
   });
@@ -61,7 +61,7 @@ export const register = async (email, username, password) => {
 
   if (!response.ok) {
     // Handle ErrorResponse format: { message: "..." }
-    const errorMessage = typeof data === 'object' && data !== null 
+    const errorMessage = typeof data === 'object' && data !== null
       ? (data.message || JSON.stringify(data))
       : (data || 'Registration failed');
     throw new Error(errorMessage);

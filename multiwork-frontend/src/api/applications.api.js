@@ -10,7 +10,7 @@ import { handleApiError } from '../utils/errorHandler';
  * @returns {Promise<Object>} Created application
  */
 export const createApplication = async (projectId, message = '') => {
-  const response = await apiFetch('/api/project-application', {
+  const response = await apiFetch('/project-application', {
     method: 'POST',
     body: JSON.stringify({
       projectId: projectId,
@@ -38,7 +38,7 @@ export const createApplication = async (projectId, message = '') => {
  */
 export const getApplicationsByProject = async (projectId, page = 0, size = 20) => {
   const response = await apiFetch(
-    `/api/project-application/project/${projectId}?page=${page}&size=${size}`,
+    `/project-application/project/${projectId}?page=${page}&size=${size}`,
     {
       method: 'GET',
     }
@@ -65,7 +65,7 @@ export const getApplicationsByProject = async (projectId, page = 0, size = 20) =
  */
 export const getApplicationsByProjectAndStatus = async (projectId, status, page = 0, size = 20) => {
   const response = await apiFetch(
-    `/api/project-application/project/${projectId}/status/${status}?page=${page}&size=${size}`,
+    `/project-application/project/${projectId}/status/${status}?page=${page}&size=${size}`,
     {
       method: 'GET',
     }
@@ -90,7 +90,7 @@ export const getApplicationsByProjectAndStatus = async (projectId, status, page 
  */
 export const getMyApplications = async (page = 0, size = 20) => {
   const response = await apiFetch(
-    `/api/project-application/my-applications?page=${page}&size=${size}`,
+    `/project-application/my-applications?page=${page}&size=${size}`,
     {
       method: 'GET',
     }
@@ -116,7 +116,7 @@ export const getMyApplications = async (page = 0, size = 20) => {
  */
 export const getMyApplicationsByStatus = async (status, page = 0, size = 20) => {
   const response = await apiFetch(
-    `/api/project-application/my-applications/status/${status}?page=${page}&size=${size}`,
+    `/project-application/my-applications/status/${status}?page=${page}&size=${size}`,
     {
       method: 'GET',
     }
@@ -139,7 +139,7 @@ export const getMyApplicationsByStatus = async (status, page = 0, size = 20) => 
  * @returns {Promise<Object>} Application DTO
  */
 export const getApplicationById = async (applicationId) => {
-  const response = await apiFetch(`/api/project-application/${applicationId}`, {
+  const response = await apiFetch(`/project-application/${applicationId}`, {
     method: 'GET',
   });
 
@@ -160,7 +160,7 @@ export const getApplicationById = async (applicationId) => {
  * @returns {Promise<number>} Count of pending applications
  */
 export const getPendingCount = async (projectId) => {
-  const response = await apiFetch(`/api/project-application/project/${projectId}/pending-count`, {
+  const response = await apiFetch(`/project-application/project/${projectId}/pending-count`, {
     method: 'GET',
   });
 
@@ -181,7 +181,7 @@ export const getPendingCount = async (projectId) => {
  * @returns {Promise<Object>} Updated application
  */
 export const approveApplication = async (applicationId) => {
-  const response = await apiFetch(`/api/project-application/${applicationId}/approve`, {
+  const response = await apiFetch(`/project-application/${applicationId}/approve`, {
     method: 'POST',
   });
 
@@ -202,7 +202,7 @@ export const approveApplication = async (applicationId) => {
  * @returns {Promise<Object>} Updated application
  */
 export const rejectApplication = async (applicationId) => {
-  const response = await apiFetch(`/api/project-application/${applicationId}/reject`, {
+  const response = await apiFetch(`/project-application/${applicationId}/reject`, {
     method: 'POST',
   });
 
@@ -223,7 +223,7 @@ export const rejectApplication = async (applicationId) => {
  * @returns {Promise<Object>} Updated application
  */
 export const cancelApplication = async (applicationId) => {
-  const response = await apiFetch(`/api/project-application/${applicationId}/cancel`, {
+  const response = await apiFetch(`/project-application/${applicationId}/cancel`, {
     method: 'POST',
   });
 

@@ -3,7 +3,7 @@ import { logError } from '../utils/logger';
 import { handleApiError } from '../utils/errorHandler';
 
 export const getUserById = async (userId) => {
-  const response = await apiFetch(`/api/user/${userId}`, {
+  const response = await apiFetch(`/user/${userId}`, {
     method: 'GET',
   });
 
@@ -18,7 +18,7 @@ export const getUserById = async (userId) => {
 };
 
 export const getCurrentUser = async () => {
-  const response = await apiFetch('/api/user/me', {
+  const response = await apiFetch('/user/me', {
     method: 'GET',
   });
 
@@ -33,7 +33,7 @@ export const getCurrentUser = async () => {
 };
 
 export const getCurrentUserProjects = async () => {
-  const response = await apiFetch('/api/user/me/projects', {
+  const response = await apiFetch('/user/me/projects', {
     method: 'GET',
   });
 
@@ -55,7 +55,7 @@ export const getCurrentUserProjects = async () => {
 };
 
 export const updateUser = async (userData) => {
-  const response = await apiFetch('/api/user', {
+  const response = await apiFetch('/user', {
     method: 'PUT',
     body: JSON.stringify(userData),
   });

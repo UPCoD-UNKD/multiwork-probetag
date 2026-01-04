@@ -55,7 +55,7 @@ export const apiFetch = async (url, options = {}) => {
  */
 export const apiFetchWithErrorHandling = async (url, options = {}) => {
   const response = await apiFetch(url, options);
-  
+
   if (!response.ok) {
     const error = await handleApiError(response);
     throw new Error(error.message || 'API request failed');

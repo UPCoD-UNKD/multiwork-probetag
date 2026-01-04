@@ -3,7 +3,7 @@ import { logError } from '../utils/logger';
 import { handleApiError } from '../utils/errorHandler';
 
 export const getComment = async (commentId) => {
-  const response = await apiFetch(`/api/comment/${commentId}`, {
+  const response = await apiFetch(`/comment/${commentId}`, {
     method: 'GET',
   });
 
@@ -18,7 +18,7 @@ export const getComment = async (commentId) => {
 };
 
 export const createComment = async (text) => {
-  const response = await apiFetch('/api/comment/', {
+  const response = await apiFetch('/comment/', {
     method: 'POST',
     body: JSON.stringify({ text }),
   });
@@ -39,9 +39,9 @@ export const addCommentToProject = async (projectId, text) => {
     throw new Error('Invalid project ID');
   }
 
-  const response = await apiFetch(`/api/project/${projectId}/comment`, {
+  const response = await apiFetch(`/project/${projectId}/comment`, {
     method: 'PATCH',
-    body: JSON.stringify({ 
+    body: JSON.stringify({
       text: text,
       date: new Date().toISOString().split('T')[0],
       time: new Date().toTimeString().split(' ')[0]

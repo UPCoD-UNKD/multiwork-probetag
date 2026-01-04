@@ -3,7 +3,7 @@ import { logError } from '../utils/logger';
 import { handleApiError } from '../utils/errorHandler';
 
 export const getAllSkills = async () => {
-  const response = await apiFetch('/api/skill/', {
+  const response = await apiFetch('/skill/', {
     method: 'GET',
   });
 

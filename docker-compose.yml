@@ -23,7 +23,7 @@ services:
       - ./multiwork-backend/data:/app/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
       interval: 30s
       timeout: 3s
       retries: 3
@@ -37,7 +37,7 @@ services:
       context: ./multiwork-frontend
       dockerfile: Dockerfile
       args:
-        - REACT_APP_API_URL=
+        - REACT_APP_API_URL=/api
     container_name: multiwork-frontend
     restart: unless-stopped
     depends_on:
@@ -65,6 +65,7 @@ services:
 
 volumes:
   frontend-build:
+
 
 networks:
   multiwork-network:

@@ -3,7 +3,7 @@ import { log, logError } from '../utils/logger';
 import { handleApiError } from '../utils/errorHandler';
 
 export const getAllProjects = async (page = 0, size = 100) => {
-  const response = await apiFetch(`/api/project/?page=${page}&size=${size}`, {
+  const response = await apiFetch(`/project/?page=${page}&size=${size}`, {
     method: 'GET',
   });
 
@@ -19,13 +19,13 @@ export const getAllProjects = async (page = 0, size = 100) => {
   if (data.content && Array.isArray(data.content)) {
     return data;
   }
-  
+
   // Handle direct array response (fallback)
   return Array.isArray(data) ? { content: data } : data;
 };
 
 export const getProjectsBySkillId = async (skillId) => {
-  const response = await apiFetch(`/api/project/find/${skillId}`, {
+  const response = await apiFetch(`/project/find/${skillId}`, {
     method: 'GET',
   });
 
@@ -46,7 +46,7 @@ export const getProjectById = async (projectId) => {
   }
 
   log('Fetching project by ID:', projectId);
-  const response = await apiFetch(`/api/project/${projectId}`, {
+  const response = await apiFetch(`/project/${projectId}`, {
     method: 'GET',
   });
 
@@ -57,7 +57,7 @@ export const getProjectById = async (projectId) => {
   }
 
   const data = await response.json();
-  
+
   log('Project fetched:', {
     id: data.id,
     projectName: data.projectName,
@@ -69,15 +69,15 @@ export const getProjectById = async (projectId) => {
 };
 
 export const createProject = async (projectName, description = '', preferredTeamSize = null) => {
-  const requestBody = { 
+  const requestBody = {
     projectName: projectName,
     description: description || ''
   };
   if (preferredTeamSize !== null && preferredTeamSize > 0) {
     requestBody.preferredTeamSize = preferredTeamSize;
   }
-  
-  const response = await apiFetch('/api/project/', {
+
+  const response = await apiFetch('/project/', {
     method: 'POST',
     body: JSON.stringify(requestBody),
   });
@@ -93,7 +93,7 @@ export const createProject = async (projectName, description = '', preferredTeam
 };
 
 export const deleteProject = async (projectId) => {
-  const response = await apiFetch(`/api/project/${projectId}`, {
+  const response = await apiFetch(`/project/${projectId}`, {
     method: 'DELETE',
   });
 
@@ -113,7 +113,7 @@ export const deleteProject = async (projectId) => {
  * @returns {Promise<Object>} - Updated project data
  */
 export const removeMemberFromProject = async (projectId, userId) => {
-  const response = await apiFetch(`/api/project/member/${projectId}/${userId}`, {
+  const response = await apiFetch(`/project/member/${projectId}/${userId}`, {
     method: 'DELETE',
   });
 
@@ -131,19 +131,19 @@ export const updateProject = async (projectId, projectData) => {
   // Log what we're sending (without the full photo array to avoid log spam)
   const logData = {
     ...projectData,
-    projectPhoto: projectData.projectPhoto 
-      ? `[Array(${projectData.projectPhoto.length})]` 
+    projectPhoto: projectData.projectPhoto
+      ? `[Array(${projectData.projectPhoto.length})]`
       : null
   };
   log('Sending update request:', logData);
-  
-  const response = await apiFetch(`/api/project/${projectId}`, {
+
+  const response = await apiFetch(`/project/${projectId}`, {
     method: 'PUT',
     body: JSON.stringify(projectData),
   });
 
   log('Response status:', response.status, 'ok:', response.ok);
-  
+
   if (!response.ok) {
     const error = await handleApiError(response);
     logError('Update failed:', error);
@@ -151,7 +151,7 @@ export const updateProject = async (projectId, projectData) => {
   }
 
   const data = await response.json();
-  
+
   // Log what we received (only in development)
   log('Update response received:', {
     id: data.id,

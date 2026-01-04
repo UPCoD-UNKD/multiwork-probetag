@@ -1,0 +1,123 @@
+.button
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  height: 48px
+  min-width: 160px
+  color: $white !important
+  font-size: 15px
+  font-weight: 600
+  border-radius: 28px
+  text-transform: uppercase
+  transition: all 0.3s ease-in-out
+  background-color: $magenta
+  border: none !important
+  outline: none !important
+  padding: 0 32px
+  cursor: pointer
+  +v-xs
+    min-width: auto
+    height: 44px
+    font-size: 13px
+    padding: 0 24px
+  +v-sm
+    min-width: auto
+    height: 44px
+    font-size: 14px
+    padding: 0 28px
+  +v-desktop
+    height: 48px
+    font-size: 15px
+    padding: 0 36px
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 4px 12px rgba(209, 8, 91, 0.4)
+    background-color: darken($magenta, 5%)
+  &:active
+    transform: translateY(0)
+    box-shadow: 0 2px 6px rgba(209, 8, 91, 0.3)
+  &:disabled
+    opacity: 0.6
+    cursor: not-allowed
+    transform: none
+  &.blue
+    background-color: $blue
+    &:hover
+      background-color: darken($blue, 10%)
+      box-shadow: 0 4px 12px rgba(78, 217, 236, 0.4)
+  &.mini
+    min-width: auto
+    height: 40px
+    font-size: 13px
+    font-weight: 600
+    padding: 0 24px
+    border-radius: 20px
+    +v-xs
+      height: 36px
+      font-size: 12px
+      padding: 0 20px
+    +v-desktop
+      height: 42px
+      font-size: 14px
+      padding: 0 28px
+    &:hover
+      transform: translateY(-1px)
+      box-shadow: 0 3px 8px rgba(209, 8, 91, 0.3)
+
+// Маленькие кнопки для действий в профиле
+.btn-small
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  padding: 0.4rem 0.9rem
+  background-color: $blue
+  color: $white
+  border: none
+  border-radius: 20px
+  cursor: pointer
+  font-size: 0.85rem
+  font-weight: 500
+  box-shadow: 0 2px 8px rgba(78, 217, 236, 0.3)
+  transition: all 0.2s ease-in-out
+  +v-xs
+    padding: 0.35rem 0.75rem
+    font-size: 0.8rem
+  +v-desktop
+    padding: 0.5rem 1rem
+    font-size: 0.9rem
+  &:hover
+    background-color: darken($blue, 10%)
+    transform: translateY(-2px)
+    box-shadow: 0 4px 12px rgba(78, 217, 236, 0.4)
+  &:active
+    transform: translateY(0)
+
+// Кнопки для удаления элементов
+.btn-remove
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  padding: 0.5rem 0.75rem
+  background-color: #ff4444
+  color: white
+  border: none
+  border-radius: 8px
+  cursor: pointer
+  font-size: 1.2rem
+  font-weight: bold
+  min-width: 36px
+  height: 36px
+  transition: all 0.2s ease-in-out
+  +v-xs
+    min-width: 32px
+    height: 32px
+    font-size: 1rem
+  +v-desktop
+    min-width: 40px
+    height: 40px
+    font-size: 1.3rem
+  &:hover
+    background-color: #ff6666
+    transform: scale(1.1)
+  &:active
+    transform: scale(0.95)

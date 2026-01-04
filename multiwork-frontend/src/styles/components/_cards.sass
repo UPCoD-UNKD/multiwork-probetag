@@ -1,0 +1,199 @@
+.block
+  display: block
+.card
+  width: auto
+  max-width: 96%
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin: 8px 2%
+  padding: 8px 16px 8px 12px
+  border-radius: 12px
+  background-color: $card
+  transition: all 0.3s ease-in-out
+  +v-xs
+    max-width: 98%
+    margin: 6px 1%
+    padding: 6px 12px 6px 10px
+    border-radius: 10px
+  +v-sm
+    max-width: 97%
+    margin: 7px 1.5%
+    padding: 7px 14px 7px 11px
+  +v-md
+    max-width: 100%
+    margin: 10px 0
+    padding: 10px 18px 10px 14px
+  +v-desktop
+    max-width: 100%
+    margin: 12px 0
+    padding: 16px 24px
+    cursor: pointer
+    &:hover
+      transform: translateY(-2px)
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2)
+      background-color: rgba(50, 75, 239, 0.35)
+  .plogo
+    margin-right: 8px
+    width: 24px
+    height: 24px
+    object-fit: scale-down
+    flex-shrink: 0
+    +v-xs
+      width: 20px
+      height: 20px
+      margin-right: 6px
+    +v-md
+      width: 28px
+      height: 28px
+      margin-right: 12px
+    +v-desktop
+      width: 32px
+      height: 32px
+      margin-right: 16px
+  .name
+    margin: 0
+    padding: 0
+    display: block
+    color: $blue
+    font-size: 14px
+    line-height: 1.2
+    flex: 1
+    min-width: 0
+    +v-xs
+      font-size: 13px
+    +v-md
+      font-size: 16px
+    +v-desktop
+      font-size: 18px
+  .desc
+    display: block
+    margin: 4px 0
+    padding: 0
+    color: $white
+    font-size: 10px
+    line-height: 1.3
+    overflow: hidden
+    text-overflow: ellipsis
+    +v-xs
+      font-size: 9px
+      margin: 3px 0
+    +v-md
+      font-size: 12px
+      margin: 6px 0
+    +v-desktop
+      font-size: 14px
+      margin: 8px 0
+  .status
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    padding: 1px 4px
+    font-size: 10px
+    border-radius: 4px
+    background-color: $card
+    flex-shrink: 0
+    +v-xs
+      font-size: 9px
+      padding: 1px 3px
+    +v-md
+      font-size: 11px
+      padding: 2px 6px
+    +v-desktop
+      font-size: 12px
+      padding: 4px 8px
+  .team
+    position: absolute
+    right: 104px
+    padding: 0 4px
+    color: $grey
+    font-size: 10px
+    +v-xs
+      right: 90px
+      font-size: 9px
+    +v-md
+      position: static
+      font-size: 11px
+      margin-left: 12px
+    +v-desktop
+      position: static
+      font-size: 12px
+      margin-left: 16px
+    span
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      min-width: 16px
+      padding: 1px 4px 0
+      border-radius: 8px
+      background-color: $card
+      +v-md
+        padding: 2px 5px
+      +v-desktop
+        padding: 2px 6px
+  .join
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    padding: 4px 8px
+    color: $white !important
+    font-size: 10px
+    border-radius: 4px
+    background-color: $magenta
+    cursor: pointer
+    transition: all 0.2s ease-in-out
+    flex-shrink: 0
+    +v-xs
+      padding: 3px 6px
+      font-size: 9px
+    +v-md
+      padding: 6px 12px
+      font-size: 11px
+    +v-desktop
+      padding: 8px 16px
+      font-size: 12px
+    &:hover
+      background-color: darken($magenta, 10%)
+      transform: scale(1.05)
+    &:active
+      transform: scale(0.95)
+// Десктопная версия карточек
+.desktop-mode
+  .card
+    max-width: 100%
+    margin: 12px 0
+    padding: 16px 24px
+    .plogo
+      width: 32px
+      height: 32px
+      margin-right: 16px
+    .name
+      font-size: 18px
+    .desc
+      font-size: 14px
+      margin: 8px 0
+    .status
+      font-size: 12px
+      padding: 4px 8px
+    .team
+      position: static
+      font-size: 12px
+      margin-left: 16px
+      span
+        padding: 2px 6px
+    .join
+      padding: 8px 16px
+      font-size: 12px
+  // Grid layout для карточек на десктопе
+  .content > div[style*="grid"]
+    display: grid !important
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)) !important
+    gap: 16px !important
+    +v-lg
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important
+    +v-md
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important
+      gap: 12px !important
+    +v-mobile
+      grid-template-columns: 1fr !important
+      gap: 8px !important

@@ -1,0 +1,272 @@
+.screen
+  position: relative
+  padding: 72px 0
+  // Мобильная версия - поддержка свайпов
+  overflow-y: auto
+  overflow-x: hidden
+  -webkit-overflow-scrolling: touch
+  scroll-behavior: smooth
+  +v-xs
+    padding: 64px 0 80px 0
+  +v-sm
+    padding: 68px 0 80px 0
+  +v-mobile
+    // В мобильной версии добавляем padding-bottom для Tabbar
+    padding-bottom: 80px
+  +v-desktop
+    padding: 0
+  .appbar
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+    padding: 32px 0 16px
+    z-index: 100
+    background-color: $appbar
+    transition: padding 0.3s ease-in-out
+    +v-xs
+      padding: 24px 0 12px
+    +v-sm
+      padding: 28px 0 14px
+    +v-md
+      padding: 30px 0 15px
+    .logo
+      width: 104px !important
+      height: 24px !important
+      object-fit: scale-down
+      transition: all 0.3s ease-in-out
+      +v-xs
+        width: 90px !important
+        height: 20px !important
+      +v-sm
+        width: 98px !important
+        height: 22px !important
+      +v-md
+        width: 110px !important
+        height: 26px !important
+    .icons
+      display: flex
+      justify-content: flex-end
+      width: 68px
+      transform: translate(4px,4px)
+      +v-xs
+        width: 60px
+      +v-sm
+        width: 64px
+      &.left
+        transform: translate(12px,4px)
+        justify-content: flex-start !important
+        +v-xs
+          transform: translate(8px,4px)
+        button
+          width: 24px
+          height: 24px
+          margin: 0 !important
+          padding: 0 !important
+          background-color: #ffffff00
+          border: none
+          +v-xs
+            width: 20px
+            height: 20px
+          svg
+            width: 16px !important
+            height: 16px !important
+            +v-xs
+              width: 14px !important
+              height: 14px !important
+      a
+        width: 24px
+        height: 24px
+        object-fit: scale-down
+        transition: transform 0.2s ease-in-out
+        +v-xs
+          width: 20px
+          height: 20px
+        +v-sm
+          width: 22px
+          height: 22px
+        &:active
+          transform: scale(0.9)
+      > a
+        width: 24px
+        margin-right: 16px
+        background-color: #ffffff00
+        +v-xs
+          width: 20px
+          margin-right: 12px
+        +v-sm
+          width: 22px
+          margin-right: 14px
+  // Десктопная версия Appbar
+  &.desktop-mode
+    overflow: visible
+    .appbar
+      position: sticky
+      top: 0
+      padding: 16px 48px
+      margin-bottom: 0
+      border-radius: 0
+      background-color: $appbar
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15)
+      z-index: 1000
+      +v-lg
+        padding: 16px 40px
+      +v-md
+        padding: 14px 32px
+      .logo
+        width: 140px !important
+        height: 32px !important
+        +v-lg
+          width: 130px !important
+          height: 30px !important
+        +v-md
+          width: 120px !important
+          height: 28px !important
+      .icons
+        width: auto
+        gap: 16px
+        +v-md
+          gap: 12px
+        > a
+          width: 28px
+          height: 28px
+          margin-right: 0
+          transition: transform 0.2s ease-in-out
+          +v-md
+            width: 24px
+            height: 24px
+          &:hover
+            transform: scale(1.1)
+  .tabbar
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+    padding: 8px 16px 16px
+    background-color: $dark
+    z-index: 101
+    // В мобильной версии фиксируем Tabbar внизу экрана
+    +v-mobile
+      position: fixed
+      bottom: 0
+      left: 0
+      right: 0
+      width: 100vw
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3)
+    +v-xs
+      padding: 6px 12px 12px
+    +v-sm
+      padding: 7px 14px 14px
+    .linkto
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      flex: 1
+      transition: transform 0.2s ease-in-out
+      +v-xs
+        padding: 4px
+      &:active
+        transform: scale(0.9)
+      svg
+        width: 20px !important
+        height: 20px !important
+        margin: 0 auto
+        +v-xs
+          width: 18px !important
+          height: 18px !important
+      small
+        color: $grey
+        font-size: 9px
+        text-align: center
+        clear: both
+        +v-xs
+          font-size: 8px
+  // Десктопная версия - фиксируем Tabbar внизу
+  &.desktop-mode .tabbar
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    width: 100vw
+    display: flex
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3)
+    z-index: 1000
+    padding: 12px 16px 16px
+    +v-lg
+      padding: 10px 16px 14px
+    +v-md
+      padding: 8px 14px 12px
+  .content
+    width: 100%
+    height: auto
+    padding: 0 32px
+    transition: padding 0.3s ease-in-out
+    +v-xs
+      padding: 0 16px 80px 16px
+    +v-sm
+      padding: 0 24px 80px 24px
+    +v-md
+      padding: 0 28px
+    +v-desktop
+      padding: 32px 48px
+      max-width: 1400px
+      margin: 0 auto
+      min-height: calc(100vh - 80px)
+      overflow: visible
+      +v-lg
+        padding: 32px 40px
+        max-width: 1200px
+      +v-md
+        padding: 28px 32px
+        max-width: 100%
+  // Десктопная версия Content
+  &.desktop-mode
+    padding: 0
+    margin: 0
+    .content
+      padding: 32px 48px 100px 48px
+      max-width: 1400px
+      margin: 0 auto
+      min-height: calc(100vh - 80px)
+      overflow: visible
+      +v-lg
+        padding: 32px 40px 100px 40px
+        max-width: 1200px
+      +v-md
+        padding: 28px 32px 90px 32px
+        max-width: 100%
+  // Стили для параграфов в контенте
+  .content
+    // Убираем лишние отступы и разрывы
+    > *:first-child
+      margin-top: 0
+    > *:last-child
+      margin-bottom: 0
+    p
+      color: rgba(255, 255, 255, 0.9)
+      font-size: 16px
+      line-height: 1.6
+      margin: 16px 0
+      +v-desktop
+        font-size: 18px
+        margin: 24px 0
+        color: rgba(255, 255, 255, 0.95)
+      +v-xs
+        font-size: 14px
+        margin: 12px 0
+    // Улучшенные отступы для заголовков и контента
+    .title + *
+      margin-top: 0
+    // Убираем разрывы в grid
+    .projects-grid
+      margin-top: 0
+      margin-bottom: 0

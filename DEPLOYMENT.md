@@ -58,6 +58,7 @@ Use the production compose file to start the application:
 ```bash
 docker compose -f docker-compose.prod.yml up -d --build
 ```
+*(If the command `docker compose` fails with an error like `unknown shorthand flag`, try using `docker-compose` (with a dash) instead: `docker-compose -f docker-compose.prod.yml ...`)*
 
 Check the logs to ensure everything started correctly:
 ```bash

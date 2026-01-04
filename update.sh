@@ -6,6 +6,18 @@
 
 set -e
 
+# Detect Docker Compose command
+if docker compose version >/dev/null 2>&1; then
+    COMPOSE_CMD="docker compose"
+    echo ">>> Using 'docker compose' (v2)"
+elif command -v docker-compose >/dev/null 2>&1; then
+    COMPOSE_CMD="docker-compose"
+    echo ">>> Using 'docker-compose' (legacy)"
+else
+    echo ">>> Error: Docker Compose not found. Please install docker-compose-plugin or docker-compose."
+    exit 1
+fi
+
 echo ">>> Pulling latest changes from Git..."
 git pull origin production
 
@@ -14,14 +26,14 @@ echo ">>> Rebuilding and restarting containers..."
 # -d runs in detached mode
 # --build forces a rebuild of images
 # --remove-orphans cleans up containers not defined in the compose file
-docker compose -f docker-compose.prod.yml up -d --build --remove-orphans
+$COMPOSE_CMD -f docker-compose.prod.yml up -d --build --remove-orphans
 
 echo ">>> Waiting for health checks..."
 sleep 5
-docker compose -f docker-compose.prod.yml ps
+$COMPOSE_CMD -f docker-compose.prod.yml ps
 
 echo ">>> Cleaning up old docker images..."
 docker image prune -f
 
 echo ">>> Update Complete!"
-echo " Logs: docker compose -f docker-compose.prod.yml logs -f"
+echo " Logs: $COMPOSE_CMD -f docker-compose.prod.yml logs -f"

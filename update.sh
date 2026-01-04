@@ -24,6 +24,13 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo ">>> Detected branch: $BRANCH"
 git pull origin "$BRANCH"
 
+echo ">>> stopping old containers..."
+# Force removal of all containers to prevent legacy docker-compose KeyErrors
+# (This causes a few seconds of downtime but ensures stability)
+if [ "$(docker ps -a -q)" ]; then
+    docker rm -f $(docker ps -a -q)
+fi
+
 echo ">>> Rebuilding and restarting containers..."
 # -f points to the production compose file
 # -d runs in detached mode

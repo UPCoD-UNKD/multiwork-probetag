@@ -18,6 +18,7 @@ services:
       # DB Connection injected from .env.production
       # using env_file handles APP_JWT_SECRET automatically
       SERVER_PORT: 8080
+      SPRING_REDIS_HOST: redis
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
       interval: 30s
@@ -57,6 +58,14 @@ services:
     depends_on:
       - frontend
       - backend
+    restart: always
+    networks:
+      - internal-net
+
+  # Redis Service (Cache)
+  redis:
+    image: redis:alpine
+    container_name: multiwork-redis
     restart: always
     networks:
       - internal-net

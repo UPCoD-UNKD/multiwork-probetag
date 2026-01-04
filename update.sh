@@ -19,7 +19,10 @@ else
 fi
 
 echo ">>> Pulling latest changes from Git..."
-git pull origin production
+# Dynamically detect current branch
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo ">>> Detected branch: $BRANCH"
+git pull origin "$BRANCH"
 
 echo ">>> Rebuilding and restarting containers..."
 # -f points to the production compose file

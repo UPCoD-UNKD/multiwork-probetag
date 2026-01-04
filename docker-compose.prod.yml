@@ -33,7 +33,7 @@ services:
       context: ./multiwork-frontend
       dockerfile: Dockerfile
       args:
-        - REACT_APP_API_URL=/api
+        - REACT_APP_API_URL=
     container_name: multiwork-frontend
     restart: always
     ports:

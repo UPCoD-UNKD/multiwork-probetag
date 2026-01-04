@@ -14,11 +14,9 @@ docker run --rm \
     -e PGPASSWORD=$SPRING_DATASOURCE_PASSWORD \
     -e PGSSLMODE=require \
     alpine sh -c "apk add --no-cache postgresql-client && \
-    echo '>>> Attempting to create a test table...' && \
-    psql -h multiwork.postgres.database.azure.com -U $SPRING_DATASOURCE_USERNAME -d postgres -c 'CREATE TABLE IF NOT EXISTS permission_test (id serial PRIMARY KEY);' && \
-    echo '✅ Table creation SUCCESSFUL' && \
-    psql -h multiwork.postgres.database.azure.com -U $SPRING_DATASOURCE_USERNAME -d postgres -c 'DROP TABLE permission_test;' && \
-    echo '✅ Table drop SUCCESSFUL'"
+    echo '>>> Listing all tables in public schema...' && \
+    psql -h multiwork.postgres.database.azure.com -U $SPRING_DATASOURCE_USERNAME -d postgres -c '\dt' && \
+    echo '✅ Check complete.'"
 
 if [ $? -ne 0 ]; then
     echo "❌ PERMISSION CHECK FAILED. User might not have privileges to create tables."

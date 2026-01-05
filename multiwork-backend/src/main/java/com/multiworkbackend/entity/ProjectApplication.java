@@ -15,20 +15,22 @@ import java.time.LocalDateTime;
 
 /**
  * Entity representing a user's application to join a project.
- * Follows Single Responsibility Principle - only responsible for application data.
+ * Follows Single Responsibility Principle - only responsible for application
+ * data.
  */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"project", "applicant", "version"})
+@EqualsAndHashCode(exclude = { "project", "applicant", "version" })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "project_applications", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"project_id", "applicant_id"})
+        @UniqueConstraint(columnNames = { "project_id", "applicant_id" })
 })
-public class ProjectApplication {
+public class ProjectApplication implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -19,11 +19,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"project", "replies", "parent", "creator"})
+@EqualsAndHashCode(exclude = { "project", "replies", "parent", "creator" })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "comments")
-public class Comment {
+public class Comment implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +40,10 @@ public class Comment {
 
     @Column(length = 255)
     private String text;
-    
+
     @Column(name = "comment_date")
     private LocalDate date;
-    
+
     @Column(name = "comment_time")
     private LocalTime time;
 

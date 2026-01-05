@@ -21,11 +21,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"members", "followers", "comments", "creator", "version"})
+@EqualsAndHashCode(exclude = { "members", "followers", "comments", "creator", "version" })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "projects")
-public class Project {
+public class Project implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,27 +50,15 @@ public class Project {
     private User creator;
 
     @ManyToMany
-    @JoinTable(
-        name = "project_members",
-        joinColumns = @JoinColumn(name = "project_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @JoinTable(name = "project_members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> members;
 
     @ManyToMany
-    @JoinTable(
-        name = "project_followers",
-        joinColumns = @JoinColumn(name = "project_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @JoinTable(name = "project_followers", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> followers;
 
     @ManyToMany
-    @JoinTable(
-        name = "project_skills",
-        joinColumns = @JoinColumn(name = "project_id"),
-        inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
+    @JoinTable(name = "project_skills", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<Skill> skills;
 
     @Lob
@@ -78,11 +67,7 @@ public class Project {
     private String description;
 
     @ManyToMany
-    @JoinTable(
-        name = "project_social_media",
-        joinColumns = @JoinColumn(name = "project_id"),
-        inverseJoinColumns = @JoinColumn(name = "social_media_id")
-    )
+    @JoinTable(name = "project_social_media", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "social_media_id"))
     private Set<SocialMedia> socialMediaSet;
 
     @OneToMany(mappedBy = "project")
@@ -120,4 +105,3 @@ public class Project {
         this.followers.add(user);
     }
 }
-

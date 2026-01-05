@@ -19,7 +19,8 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "users")
-public class User {
+public class User implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

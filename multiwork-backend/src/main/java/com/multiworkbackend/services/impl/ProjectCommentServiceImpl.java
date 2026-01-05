@@ -14,6 +14,7 @@ import com.multiworkbackend.services.ProjectAuthorizationService;
 import com.multiworkbackend.services.ProjectCommentService;
 import com.multiworkbackend.services.UserEntityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,23 +36,24 @@ public class ProjectCommentServiceImpl implements ProjectCommentService {
 
     @Override
     @Transactional
-    public CommentDTO addComment(Long projectId, CommentDTO commentDTO, Authentication auth) 
+    @CacheEvict(value = "projects", key = "#projectId")
+    public CommentDTO addComment(Long projectId, CommentDTO commentDTO, Authentication auth)
             throws NoPermissionException, NoSuchElementFoundException {
-        
+
         projectAuthorizationService.requireOwnerOrMember(projectId, auth);
-        
+
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new NoSuchElementFoundException("Project not found with id: " + projectId));
-        
+
         if (commentDTO.getCreator() == null) {
             User creatorUser = userEntityService.getUserByUsername(auth.getName());
             commentDTO.setCreator(mapperUtils.toUserSummaryDTO(creatorUser));
         }
-        
+
         Comment savedComment = commentService.createCommentEntity(commentDTO);
         project.addComment(savedComment);
         projectRepository.save(project);
-        
+
         return commentMapper.toDTO(savedComment);
     }
 }

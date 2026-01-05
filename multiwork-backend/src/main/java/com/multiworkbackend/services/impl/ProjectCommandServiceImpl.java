@@ -52,10 +52,11 @@ public class ProjectCommandServiceImpl implements ProjectCommandService {
     private org.springframework.cache.CacheManager cacheManager;
 
     /**
-     * Creates a new project and associates it with the authenticated user as creator.
+     * Creates a new project and associates it with the authenticated user as
+     * creator.
      *
      * @param createProjectDTO project creation data
-     * @param auth authentication context
+     * @param auth             authentication context
      * @return created ProjectDTO
      */
     @Override
@@ -63,7 +64,7 @@ public class ProjectCommandServiceImpl implements ProjectCommandService {
     public ProjectDTO create(CreateProjectDTO createProjectDTO, Authentication auth) {
         // Validate project creation data
         projectValidator.validateCreate(createProjectDTO);
-        
+
         User creator = userEntityService.getUserByUsername(auth.getName());
         HashSet<User> members = new HashSet<>();
         members.add(creator);
@@ -80,15 +81,15 @@ public class ProjectCommandServiceImpl implements ProjectCommandService {
         project.setSkills(new HashSet<>());
         project.setProjectTypes(new HashSet<>());
         project.setProjectStatuses(new HashSet<>());
-        
+
         if (project.getProjectPhoto() != null) {
             dataSizeValidator.validateProjectPhotoSize(project.getProjectPhoto());
         }
 
         Project savedProject = projectRepository.save(project);
-        logger.info("Project created successfully with ID: {} by user: {}", 
+        logger.info("Project created successfully with ID: {} by user: {}",
                 savedProject.getId(), auth.getName());
-        
+
         Project fullProject = projectRepository.findById(savedProject.getId())
                 .orElse(savedProject);
         initializeElementCollections(fullProject);
@@ -102,101 +103,103 @@ public class ProjectCommandServiceImpl implements ProjectCommandService {
      * Only updates fields that are provided in the DTO, preserving existing data.
      *
      * @param projectDTO project data to update
-     * @param id project ID
-     * @param auth authentication context
+     * @param id         project ID
+     * @param auth       authentication context
      * @return updated ProjectDTO
-     * @throws NoPermissionException if user doesn't have permission
+     * @throws NoPermissionException       if user doesn't have permission
      * @throws NoSuchElementFoundException if project not found
      */
     @Override
     @Transactional
-    public ProjectDTO update(ProjectDTO projectDTO, Long id, Authentication auth) 
+    public ProjectDTO update(ProjectDTO projectDTO, Long id, Authentication auth)
             throws NoPermissionException, NoSuchElementFoundException {
-        
+
         projectAuthorizationService.requireOwner(id, auth);
 
         Project existingProject = projectRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementFoundException("Project not found with id: " + id));
-        
+
         projectValidator.validateUpdate(projectDTO);
-        
+
         projectFieldUpdater.updateFields(existingProject, projectDTO);
-        
+
         if (projectDTO.getProjectPhoto() != null && projectDTO.getProjectPhoto().length > 0) {
             dataSizeValidator.validateProjectPhotoSize(projectDTO.getProjectPhoto());
         }
 
         try {
             Project savedProject = projectRepository.save(existingProject);
-            logger.info("Project updated successfully with ID: {} by user: {}", 
+            logger.info("Project updated successfully with ID: {} by user: {}",
                     savedProject.getId(), auth.getName());
-            
+
             // Reload from database to ensure we have the latest data
             Project fullProject = projectRepository.findById(savedProject.getId())
                     .orElse(savedProject);
             initializeElementCollections(fullProject);
-            
+
             ProjectDTO resultDTO = projectMapper.toDTO(fullProject);
             // Evict cache after update
             evictProjectCache(id);
             return resultDTO;
         } catch (ObjectOptimisticLockingFailureException e) {
-            logger.warn("Optimistic locking failure while updating project {}: {}. Retrying once...", 
+            logger.warn("Optimistic locking failure while updating project {}: {}. Retrying once...",
                     id, e.getMessage());
             Project reloadedProject = projectRepository.findById(id)
                     .orElseThrow(() -> new NoSuchElementFoundException("Project not found with id: " + id));
             projectFieldUpdater.updateFields(reloadedProject, projectDTO);
-            
+
             try {
                 Project savedProject = projectRepository.save(reloadedProject);
-                logger.info("Project updated successfully on retry with ID: {} by user: {}", 
+                logger.info("Project updated successfully on retry with ID: {} by user: {}",
                         savedProject.getId(), auth.getName());
                 Project fullProject = projectRepository.findById(savedProject.getId())
                         .orElse(savedProject);
                 initializeElementCollections(fullProject);
+                evictProjectCache(id);
                 return projectMapper.toDTO(fullProject);
             } catch (ObjectOptimisticLockingFailureException retryException) {
                 logger.error("Optimistic locking failure on retry for project {}: {}. " +
                         "Project may have been modified by another user.", id, retryException.getMessage());
                 throw new NoPermissionException(
-                    "Project was modified by another user. Please refresh and try again.");
+                        "Project was modified by another user. Please refresh and try again.");
             }
         }
     }
-    
+
     /**
      * Deletes a project.
      * Only the project owner can delete the project.
-     * Before deleting the project, all related applications and comments are deleted.
+     * Before deleting the project, all related applications and comments are
+     * deleted.
      *
-     * @param id project ID
+     * @param id   project ID
      * @param auth authentication context
-     * @throws NoPermissionException if user doesn't have permission
+     * @throws NoPermissionException       if user doesn't have permission
      * @throws NoSuchElementFoundException if project not found
      */
     @Override
     @Transactional
-    public void delete(Long id, Authentication auth) 
+    public void delete(Long id, Authentication auth)
             throws NoPermissionException, NoSuchElementFoundException {
-        
+
         projectAuthorizationService.requireOwner(id, auth);
-        
+
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementFoundException("Project not found with id: " + id));
-        
+
         // Delete all related applications first
         projectApplicationRepository.deleteByProjectId(id);
-        
+
         // Delete all related comments
         commentRepository.deleteByProjectId(id);
-        
+
         // Now safe to delete the project
         projectRepository.delete(project);
         // Evict from cache
         evictProjectCache(id);
         logger.info("Project deleted successfully with ID: {} by user: {}", id, auth.getName());
     }
-    
+
     /**
      * Evicts project from cache.
      * Safe to call even if caching is not enabled.
@@ -213,7 +216,7 @@ public class ProjectCommandServiceImpl implements ProjectCommandService {
             // Cache not available or not configured - ignore silently
         }
     }
-    
+
     private void initializeElementCollections(Project project) {
         if (project.getProjectStatuses() != null) {
             Hibernate.initialize(project.getProjectStatuses());

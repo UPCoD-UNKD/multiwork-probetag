@@ -21,7 +21,7 @@ public class DataInitializer {
     @Profile("!azure")  // Отключаем для Azure профиля
     CommandLineRunner createTestUser(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         return args -> {
-            String username = "test";
+            String username = "ChiffDev";
             String email = "t@test.com";
             String rawPassword = "Test1234";
 

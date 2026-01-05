@@ -21,7 +21,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDTO {
+public class ProjectDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String projectName;
     private Long position;

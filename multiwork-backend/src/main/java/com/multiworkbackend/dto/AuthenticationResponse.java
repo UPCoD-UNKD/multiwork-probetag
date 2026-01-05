@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class AuthenticationResponse implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String token;
 }

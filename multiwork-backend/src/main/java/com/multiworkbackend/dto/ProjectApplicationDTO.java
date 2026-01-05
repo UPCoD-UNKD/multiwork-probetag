@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectApplicationDTO {
+public class ProjectApplicationDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private ProjectSummaryDTO project;
     private UserSummaryDTO applicant;

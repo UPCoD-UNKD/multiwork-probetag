@@ -22,7 +22,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO {
+public class UserDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String fullName;
     private String username;

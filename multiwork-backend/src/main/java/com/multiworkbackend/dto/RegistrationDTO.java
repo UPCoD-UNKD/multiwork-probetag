@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationDTO {
+public class RegistrationDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Email(message = "Not valid email")
     private String email;

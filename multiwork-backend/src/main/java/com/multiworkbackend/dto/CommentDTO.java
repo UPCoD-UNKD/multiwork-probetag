@@ -18,7 +18,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDTO {
+public class CommentDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private UserSummaryDTO creator;
     private String text;

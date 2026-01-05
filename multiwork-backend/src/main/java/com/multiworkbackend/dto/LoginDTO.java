@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDTO {
+public class LoginDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     @NotBlank
     @NotEmpty
     private String email;

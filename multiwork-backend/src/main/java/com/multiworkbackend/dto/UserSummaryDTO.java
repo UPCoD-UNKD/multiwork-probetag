@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSummaryDTO {
+public class UserSummaryDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String fullName;
     private String username;

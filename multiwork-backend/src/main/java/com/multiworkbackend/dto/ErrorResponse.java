@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponse {
+public class ErrorResponse implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String message;
 }

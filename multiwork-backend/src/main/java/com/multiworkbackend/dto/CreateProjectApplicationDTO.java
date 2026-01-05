@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProjectApplicationDTO {
+public class CreateProjectApplicationDTO implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     
     @NotNull(message = "Project ID is required")
     private Long projectId;

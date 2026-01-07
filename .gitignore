@@ -1,7 +1,30 @@
-*
-!*.md
-!.gitignore
-!.gitmodules
-!*.svg
-!*.gif
-!*/
+# IDEs and Editors
+.idea/
+.vscode/
+.cursor/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Local scripts
+*.sh
+*.ps1
+*.bat
+
+# Environment files
+.env
+.env.production
+.env.local
+
+# Subproject artifacts
+multiwork-backend/target/
+multiwork-backend/data/
+multiwork-frontend/node_modules/
+multiwork-frontend/dist/
+multiwork-frontend/coverage/
+
+# Documentation for developers
+# DOCKER_SETUP.md and TESTING.md are ignored, but docker-compose files should be kept
+DOCKER_SETUP.md
+TESTING.md

@@ -1,0 +1,9 @@
+[submodule "multiwork-backend"]
+	path = multiwork-backend
+	url = https://github.com/GreedMitya/multiwork-backend
+[submodule "multiwork-frontend"]
+	path = multiwork-frontend
+	url = https://github.com/GreedMitya/multiwork-frontend
+[submodule "multiwork-app-android"]
+	path = multiwork-app-android
+	url = https://github.com/GreedMitya/multiwork-app-android

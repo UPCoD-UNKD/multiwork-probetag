@@ -22,7 +22,7 @@ build
 .env
 .env.*
 !.env.example
-!.env.production.example
+!.env.local
 
 # Logs
 *.log

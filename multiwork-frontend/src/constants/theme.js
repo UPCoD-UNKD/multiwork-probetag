@@ -8,41 +8,46 @@ export const COLORS = {
   primary: '#4ED9EC',
   primaryHover: '#3bc4d6',
   primaryDark: '#2a9bb0',
-  
+
+  // Magenta accents (New from Figma)
+  magenta: '#FD4979',
+  magentaHover: '#e03e6b',
+  magentaDark: '#d1355e',
+
   // Background colors
   background: '#1a1a2e',
-  backgroundLight: 'rgba(255, 255, 255, 0.05)',
-  backgroundMedium: 'rgba(255, 255, 255, 0.1)',
-  backgroundDark: 'rgba(0, 0, 0, 0.2)',
-  
+  backgroundLight: 'rgba(255, 255, 255, 0.03)',
+  backgroundMedium: 'rgba(255, 255, 255, 0.07)',
+  backgroundDark: 'rgba(0, 0, 0, 0.4)',
+  glassBackground: 'rgba(26, 26, 46, 0.6)',
+
   // Text colors
   textPrimary: '#ffffff',
-  textSecondary: 'rgba(255, 255, 255, 0.8)',
-  textTertiary: 'rgba(255, 255, 255, 0.6)',
-  textDisabled: 'rgba(255, 255, 255, 0.5)',
+  textSecondary: 'rgba(255, 255, 255, 0.85)',
+  textTertiary: 'rgba(255, 255, 255, 0.65)',
+  textDisabled: 'rgba(255, 255, 255, 0.45)',
   textMuted: '#999',
-  
+
   // Status colors
   success: '#39AA8F',
   successHover: '#2d8a6f',
   warning: '#FEB700',
-  error: '#D1085B',
-  errorHover: '#b0074a',
+  error: '#FD4979', // Using magenta for error as well to match palette
+  errorHover: '#e03e6b',
   info: '#4ED9EC',
-  
+
   // Border colors
   border: 'rgba(255, 255, 255, 0.1)',
-  borderLight: 'rgba(255, 255, 255, 0.2)',
-  borderMedium: 'rgba(255, 255, 255, 0.3)',
-  borderPrimary: 'rgba(78, 217, 236, 0.2)',
-  borderPrimaryMedium: 'rgba(78, 217, 236, 0.3)',
-  borderPrimaryStrong: 'rgba(78, 217, 236, 0.4)',
-  
+  borderLight: 'rgba(255, 255, 255, 0.15)',
+  borderMedium: 'rgba(255, 255, 255, 0.25)',
+  borderPrimary: 'rgba(78, 217, 236, 0.15)',
+  borderMagenta: 'rgba(253, 73, 121, 0.2)',
+
   // Overlay
-  overlay: 'rgba(0, 0, 0, 0.8)',
-  
+  overlay: 'rgba(0, 0, 0, 0.7)',
+
   // Disabled
-  disabled: '#666',
+  disabled: '#444',
 }
 
 // Spacing (using rem units for consistency)

@@ -20,11 +20,11 @@ function Home() {
   const skillId = searchParams.get('skillId')
   const { isDesktop, isMobile } = useViewMode()
   const { t } = useLanguage()
-  
+
   const spacing = getResponsiveSpacing(isDesktop)
   const fontSizes = getResponsiveFontSizes(isDesktop)
   const buttonSize = getButtonSize(isDesktop, 'md')
-  
+
   // Свайпы для мобильной версии
   const swipeRef = useSwipe({
     onSwipeLeft: () => {
@@ -43,11 +43,11 @@ function Home() {
   const { data: projectsBySkillData, isLoading: loadingBySkill, error: errorBySkill, refetch: refetchBySkill } = useProjectsBySkill(skillId, {
     enabled: !!skillId, // Only fetch if skillId is provided
   })
-  
+
   const { data: allProjectsData, isLoading: loadingAll, error: errorAll, refetch: refetchAll } = useAllProjects(0, 100, {
     enabled: !skillId, // Only fetch if no skillId
   })
-  
+
   const { data: userData } = useCurrentUser() // Cached user data
 
   // Determine which data to use
@@ -58,7 +58,7 @@ function Home() {
   // Process and filter projects based on user data
   const projects = useMemo(() => {
     let allProjects = []
-    
+
     // Get projects data
     if (skillId && projectsBySkillData) {
       allProjects = Array.isArray(projectsBySkillData) ? projectsBySkillData : (projectsBySkillData?.content || [])
@@ -81,33 +81,33 @@ function Home() {
     const userProjectIds = new Set()
     if (userData) {
       const userId = userData.id ? String(userData.id) : null
-      
+
       // Add projects where user is a member
       if (userData.memberProjects) {
-        const memberProjects = Array.isArray(userData.memberProjects) 
-          ? userData.memberProjects 
+        const memberProjects = Array.isArray(userData.memberProjects)
+          ? userData.memberProjects
           : (userData.memberProjects.size !== undefined ? Array.from(userData.memberProjects) : [])
-        
+
         memberProjects.forEach(project => {
           if (project && project.id) {
             userProjectIds.add(String(project.id))
           }
         })
       }
-      
+
       // Add projects where user is a creator
       if (userData.creatorProjects) {
-        const creatorProjects = Array.isArray(userData.creatorProjects) 
-          ? userData.creatorProjects 
+        const creatorProjects = Array.isArray(userData.creatorProjects)
+          ? userData.creatorProjects
           : (userData.creatorProjects.size !== undefined ? Array.from(userData.creatorProjects) : [])
-        
+
         creatorProjects.forEach(project => {
           if (project && project.id) {
             userProjectIds.add(String(project.id))
           }
         })
       }
-      
+
       // Also check project.members array for current user
       allProjects.forEach(project => {
         if (project.members && userId) {
@@ -120,11 +120,11 @@ function Home() {
             userProjectIds.add(String(project.id))
           }
         }
-        
+
         // Check if user is creator
         if (project.creator && userId) {
-          const creatorId = typeof project.creator === 'object' 
-            ? (project.creator.id || project.creator) 
+          const creatorId = typeof project.creator === 'object'
+            ? (project.creator.id || project.creator)
             : project.creator
           if (String(creatorId) === userId && project.id) {
             userProjectIds.add(String(project.id))
@@ -142,21 +142,21 @@ function Home() {
     // If user is logged in and has skills, filter projects by user skills
     let recommendedProjects = filteredProjects
     if (userData && userData.skills && Array.isArray(userData.skills) && userData.skills.length > 0) {
-      const userSkillIds = userData.skills.map(skill => 
+      const userSkillIds = userData.skills.map(skill =>
         typeof skill === 'object' ? skill.id : skill
       ).filter(id => id != null)
-      
+
       if (userSkillIds.length > 0) {
         // Filter projects that have at least one skill matching user skills
         recommendedProjects = filteredProjects.filter(project => {
           if (!project.skills || !Array.isArray(project.skills)) {
             return false
           }
-          
-          const projectSkillIds = project.skills.map(skill => 
+
+          const projectSkillIds = project.skills.map(skill =>
             typeof skill === 'object' ? skill.id : skill
           ).filter(id => id != null)
-          
+
           // Check if project has at least one skill that matches user skills
           return projectSkillIds.some(skillId => userSkillIds.includes(skillId))
         })
@@ -172,36 +172,38 @@ function Home() {
       <div ref={swipeRef} className={`screen ${isDesktop ? 'desktop-mode' : ''}`}>
         <Appbar show='flex' />
         <div className="content">
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
             alignItems: isDesktop ? 'center' : 'flex-start',
             marginBottom: spacing.xl,
             flexDirection: isDesktop ? 'row' : 'column',
             gap: spacing.md,
             width: '100%'
           }}>
-            <h1 className="title form" style={{ 
+            <h1 className="title form" style={{
               margin: 0,
-              fontSize: fontSizes.xxl
+              fontSize: fontSizes.xxl,
+              color: COLORS.textPrimary
             }}>
               {t('home.title')}
             </h1>
-              <button
-                onClick={() => refetch()}
-                disabled={isLoading}
+            <button
+              onClick={() => refetch()}
+              disabled={isLoading}
               style={{
                 ...buttonSize,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: spacing.sm,
-                backgroundColor: isLoading ? 'rgba(78, 217, 236, 0.3)' : 'rgba(78, 217, 236, 0.2)',
-                border: '1px solid rgba(78, 217, 236, 0.4)',
+                backgroundColor: isLoading ? 'rgba(253, 73, 121, 0.3)' : 'rgba(253, 73, 121, 0.2)',
+                border: '1px solid rgba(253, 73, 121, 0.4)',
                 borderRadius: BORDER_RADIUS.lg,
-                color: COLORS.primary,
+                color: COLORS.magenta,
                 fontSize: fontSizes.md,
                 fontWeight: '600',
+                boxShadow: isLoading ? 'none' : '0 4px 12px rgba(253, 73, 121, 0.2)',
                 cursor: isLoading ? 'not-allowed' : 'pointer',
                 transition: `all ${TRANSITIONS.normal}`,
                 opacity: isLoading ? 0.6 : 1,
@@ -210,36 +212,39 @@ function Home() {
               }}
               onMouseEnter={(e) => {
                 if (!isLoading && isDesktop) {
-                  e.target.style.backgroundColor = 'rgba(78, 217, 236, 0.3)'
-                  e.target.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.backgroundColor = 'rgba(253, 73, 121, 0.3)'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(253, 73, 121, 0.4)'
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isLoading && isDesktop) {
-                  e.target.style.backgroundColor = 'rgba(78, 217, 236, 0.2)'
-                  e.target.style.transform = 'translateY(0)'
+                  e.currentTarget.style.backgroundColor = 'rgba(253, 73, 121, 0.2)'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(253, 73, 121, 0.2)'
                 }
               }}
               onTouchStart={(e) => {
                 if (!isLoading && !isDesktop) {
-                  e.target.style.opacity = '0.8'
+                  e.currentTarget.style.opacity = '0.8'
                 }
               }}
               onTouchEnd={(e) => {
                 if (!isDesktop) {
-                  e.target.style.opacity = isLoading ? 0.6 : 1
+                  e.currentTarget.style.opacity = isLoading ? 0.6 : 1
                 }
               }}
               aria-label={t('home.refreshProjects') || 'Refresh Projects'}
             >
-              <MdRefresh 
-                size={isDesktop ? 20 : 22} 
-                style={{ 
+              <MdRefresh
+                size={isDesktop ? 20 : 22}
+                style={{
                   animation: isLoading ? 'spin 1s linear infinite' : 'none'
-                }} 
+                }}
               />
               <span>{isLoading ? (t('common.loading') || 'Loading...') : (t('home.refresh') || 'Refresh')}</span>
             </button>
+
           </div>
 
           {isLoading ? (
@@ -290,8 +295,8 @@ function Home() {
               textAlign: 'center',
               color: COLORS.textTertiary
             }}>
-              <p style={{ 
-                margin: 0, 
+              <p style={{
+                margin: 0,
                 fontSize: fontSizes.lg
               }}>
                 {t('home.projectsNotFound')}
@@ -317,7 +322,7 @@ function Home() {
         </div>
         <Tabbar show='flex' />
       </div>
-      
+
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }

@@ -1,19 +1,22 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MdArrowBack, MdOutlineExitToApp } from 'react-icons/md'
-import applogo from '../../assets/svg/logo/logo-app.svg'
+import applogo from '../../assets/svg/logo/logo-sign.svg' // Using petal logo
 
 
 const Appbar = (props) => {
 
   const navigate = useNavigate()
-  const goBack = () => navigate(-1)
+  const goBack = (e) => {
+    e.preventDefault()
+    navigate(-1)
+  }
 
   return (
     <>
-      <div className="appbar" style={{display: props.show}}>
+      <div className="appbar glass" style={{ display: props.show }}>
         <div className="icons left">
-          <Link onClick={goBack}><MdArrowBack width={20} color={'white'} /></Link>
+          <Link to="#" onClick={goBack}><MdArrowBack width={20} color={'white'} /></Link>
         </div>
         <img src={applogo} alt='logo' className='logo' />
         <div className="icons">

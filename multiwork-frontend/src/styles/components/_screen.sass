@@ -26,8 +26,11 @@
     width: 100%
     padding: 32px 0 16px
     z-index: 100
-    background-color: $appbar
-    transition: padding 0.3s ease-in-out
+    background-color: rgba(26, 26, 46, 0.4) // Glass effect
+    backdrop-filter: blur(10px)
+    -webkit-backdrop-filter: blur(10px)
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+    transition: all 0.3s ease-in-out
     +v-xs
       padding: 24px 0 12px
     +v-sm
@@ -35,8 +38,8 @@
     +v-md
       padding: 30px 0 15px
     .logo
-      width: 104px !important
-      height: 24px !important
+      width: 140px !important
+      height: 32px !important
       object-fit: scale-down
       transition: all 0.3s ease-in-out
       +v-xs
@@ -101,46 +104,6 @@
         +v-sm
           width: 22px
           margin-right: 14px
-  // Десктопная версия Appbar
-  &.desktop-mode
-    overflow: visible
-    .appbar
-      position: sticky
-      top: 0
-      padding: 16px 48px
-      margin-bottom: 0
-      border-radius: 0
-      background-color: $appbar
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15)
-      z-index: 1000
-      +v-lg
-        padding: 16px 40px
-      +v-md
-        padding: 14px 32px
-      .logo
-        width: 140px !important
-        height: 32px !important
-        +v-lg
-          width: 130px !important
-          height: 30px !important
-        +v-md
-          width: 120px !important
-          height: 28px !important
-      .icons
-        width: auto
-        gap: 16px
-        +v-md
-          gap: 12px
-        > a
-          width: 28px
-          height: 28px
-          margin-right: 0
-          transition: transform 0.2s ease-in-out
-          +v-md
-            width: 24px
-            height: 24px
-          &:hover
-            transform: scale(1.1)
   .tabbar
     position: absolute
     bottom: 0
@@ -151,7 +114,10 @@
     justify-content: space-between
     width: 100%
     padding: 8px 16px 16px
-    background-color: $dark
+    background-color: rgba(26, 26, 46, 0.6) // Glass effect tabbar
+    backdrop-filter: blur(15px)
+    -webkit-backdrop-filter: blur(15px)
+    border-top: 1px solid rgba(255, 255, 255, 0.1)
     z-index: 101
     // В мобильной версии фиксируем Tabbar внизу экрана
     +v-mobile
@@ -190,21 +156,6 @@
         clear: both
         +v-xs
           font-size: 8px
-  // Десктопная версия - фиксируем Tabbar внизу
-  &.desktop-mode .tabbar
-    position: fixed
-    bottom: 0
-    left: 0
-    right: 0
-    width: 100vw
-    display: flex
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3)
-    z-index: 1000
-    padding: 12px 16px 16px
-    +v-lg
-      padding: 10px 16px 14px
-    +v-md
-      padding: 8px 14px 12px
   .content
     width: 100%
     height: auto
@@ -227,22 +178,6 @@
         max-width: 1200px
       +v-md
         padding: 28px 32px
-        max-width: 100%
-  // Десктопная версия Content
-  &.desktop-mode
-    padding: 0
-    margin: 0
-    .content
-      padding: 32px 48px 100px 48px
-      max-width: 1400px
-      margin: 0 auto
-      min-height: calc(100vh - 80px)
-      overflow: visible
-      +v-lg
-        padding: 32px 40px 100px 40px
-        max-width: 1200px
-      +v-md
-        padding: 28px 32px 90px 32px
         max-width: 100%
   // Стили для параграфов в контенте
   .content

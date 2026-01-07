@@ -31,13 +31,15 @@
     color: $white
     font-size: 14px
     font-weight: 300
-    border-radius: 28px
-    border: none
+    border-radius: 20px
+    border: 1px solid rgba(255, 255, 255, 0.1)
     outline: none
-    background-color: $input
+    background: rgba(0, 0, 0, 0.2)
+    backdrop-filter: blur(5px)
+    -webkit-backdrop-filter: blur(5px)
     transition: all 0.3s ease-in-out
     +placeholder
-      color: $grey
+      color: rgba(255, 255, 255, 0.4)
     +v-xs
       padding: 12px 20px
       font-size: 13px
@@ -47,59 +49,66 @@
       font-size: 15px
       height: 120px
     &:focus
-      background-color: rgba(93, 95, 239, 0.35)
-      box-shadow: 0 0 0 3px rgba(78, 217, 236, 0.2)
+      background-color: rgba(255, 255, 255, 0.1)
+      border-color: $magenta
+      box-shadow: 0 0 0 3px rgba(253, 73, 121, 0.1)
   input
     width: 100%
-    height: 40px
-    line-height: 40px
-    margin: 8px 0
+    height: 48px
+    line-height: 48px
+    margin: 10px 0
     padding: 0 24px
     color: $white
     font-size: 14px
     font-weight: 300
-    border-radius: 28px
-    border: none
+    border-radius: 24px
+    border: 1px solid rgba(255, 255, 255, 0.1)
     outline: none
-    background-color: $input
+    background: rgba(0, 0, 0, 0.2)
+    backdrop-filter: blur(5px)
+    -webkit-backdrop-filter: blur(5px)
     transition: all 0.3s ease-in-out
     +placeholder
-      color: $grey
+      color: rgba(255, 255, 255, 0.4)
     +v-xs
       height: 44px
       padding: 0 20px
       font-size: 13px
-      margin: 6px 0
+      margin: 8px 0
     +v-sm
       height: 42px
     +v-desktop
-      height: 48px
+      height: 52px
       padding: 0 28px
       font-size: 15px
-      margin: 10px 0
-    &:focus
-      background-color: rgba(93, 95, 239, 0.35)
-      box-shadow: 0 0 0 3px rgba(78, 217, 236, 0.2)
+      margin: 12px 0
+    &:focus:not([type="submit"])
+      background-color: rgba(255, 255, 255, 0.1)
+      border-color: $magenta
+      box-shadow: 0 0 0 4px rgba(253, 73, 121, 0.15)
     &[type="submit"]
-      font-size: 12px
-      font-weight: 400
+      font-size: 13px
+      font-weight: 600
       text-align: center
+      letter-spacing: 0.5px
       text-transform: uppercase
       background-color: $magenta
+      box-shadow: 0 4px 15px rgba(253, 73, 121, 0.3)
       cursor: pointer
-      transition: all 0.2s ease-in-out
+      border: none
+      transition: all 0.25s ease-in-out
       +v-xs
-        font-size: 11px
+        font-size: 12px
         height: 44px
       +v-desktop
-        font-size: 13px
-        height: 48px
-        font-weight: 500
+        font-size: 14px
+        height: 52px
       &:hover
-        transform: scale(1.02)
-        box-shadow: 0 4px 12px rgba(209, 8, 91, 0.3)
+        transform: translateY(-2px)
+        background-color: lighten($magenta, 5%)
+        box-shadow: 0 6px 20px rgba(253, 73, 121, 0.4)
       &:active
-        transform: scale(0.98)
+        transform: translateY(0) scale(0.98)
   .error
     color: #ff4444
     font-size: 12px

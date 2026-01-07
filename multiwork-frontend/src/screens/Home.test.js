@@ -60,20 +60,20 @@ describe('Home Screen', () => {
       const promise = new Promise(resolve => {
         resolvePromise = resolve;
       });
-      
+
       projectsApi.getAllProjects.mockImplementation(() => promise);
       usersApi.getCurrentUser.mockResolvedValue(null);
 
       renderWithProviders(<Home />);
 
       // Click load button to trigger loading
-      const loadButton = screen.getByRole('button', { name: /load|загрузить/i });
+      const loadButton = screen.getByRole('button', { name: /refresh|обновить/i });
       fireEvent.click(loadButton);
 
       await waitFor(() => {
         expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
       }, { timeout: 2000 });
-      
+
       // Resolve promise to prevent hanging
       resolvePromise({ content: [] });
       await promise;
@@ -92,7 +92,7 @@ describe('Home Screen', () => {
 
       renderWithProviders(<Home />);
 
-      const loadButton = screen.getByRole('button', { name: /load|загрузить/i });
+      const loadButton = screen.getByRole('button', { name: /refresh|обновить/i });
       fireEvent.click(loadButton);
 
       await waitFor(() => {
@@ -107,7 +107,7 @@ describe('Home Screen', () => {
 
       renderWithProviders(<Home />);
 
-      const loadButton = screen.getByRole('button', { name: /load|загрузить/i });
+      const loadButton = screen.getByRole('button', { name: /refresh|обновить/i });
       fireEvent.click(loadButton);
 
       await waitFor(() => {
@@ -126,7 +126,7 @@ describe('Home Screen', () => {
       const refreshButton = screen.getByRole('button', { name: /refresh|обновить/i });
       if (refreshButton) {
         fireEvent.click(refreshButton);
-        
+
         await waitFor(() => {
           expect(projectsApi.getAllProjects).toHaveBeenCalled();
         }, { timeout: 5000 });
@@ -141,7 +141,7 @@ describe('Home Screen', () => {
 
       renderWithProviders(<Home />);
 
-      const loadButton = screen.getByRole('button', { name: /load|загрузить/i });
+      const loadButton = screen.getByRole('button', { name: /refresh|обновить/i });
       fireEvent.click(loadButton);
 
       await waitFor(() => {

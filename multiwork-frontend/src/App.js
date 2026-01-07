@@ -36,14 +36,14 @@ const NotFound = lazy(() => import('./screens/NotFound').then(m => ({ default: m
 // Loading component (simple, doesn't need context)
 const LoadingFallback = () => {
   return (
-    <div 
+    <div
       role="status"
       aria-live="polite"
       aria-label="Loading"
-      style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         minHeight: '100vh',
         color: '#ffffff'
       }}
@@ -61,7 +61,7 @@ function App() {
           <AuthProvider>
             <ViewModeProvider>
               <BrowserRouter>
-                <ToastContainer 
+                <ToastContainer
                   position="top-right"
                   autoClose={3000}
                   hideProgressBar={false}
@@ -80,7 +80,7 @@ function App() {
                     <Route path="/forgot" element={<Forgot />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/onboarding" element={<Onboarding />} />
-                    
+
                     {/* Protected routes */}
                     <Route path="/home" element={
                       <ProtectedRoute>

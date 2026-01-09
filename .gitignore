@@ -7,24 +7,20 @@
 .DS_Store
 Thumbs.db
 
-# Local scripts
-*.sh
-*.ps1
-*.bat
-
 # Environment files
+# Keep .env.example, but ignore actual .env files with secrets
 .env
 .env.production
 .env.local
+!.env.*.example
 
-# Subproject artifacts
+# Subproject build artifacts (Auto-generated, do NOT commit)
 multiwork-backend/target/
 multiwork-backend/data/
 multiwork-frontend/node_modules/
 multiwork-frontend/dist/
 multiwork-frontend/coverage/
+multiwork-frontend/build/
 
-# Documentation for developers
-# DOCKER_SETUP.md and TESTING.md are ignored, but docker-compose files should be kept
-DOCKER_SETUP.md
-TESTING.md
+# Keep all scripts and documentation
+# (Removed the explicit ignore for .sh, .ps1, .bat and .md files)

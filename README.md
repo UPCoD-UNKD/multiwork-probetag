@@ -55,6 +55,7 @@ We are grateful for support from:
 | | | |
 |:---:|:---:|:---:|
 | **Google**<br>*(Ads Credits)* | **Microsoft**<br>*(AI Credits)* | **AWS**<br>*(Cloud Credits)* |
+| **[@GreedMitya](https://github.com/GreedMitya)**<br>*(Core Developer)* |  |  |
 
 ## 📂 Repository Structure
 
